@@ -25,6 +25,14 @@ Open [http://127.0.0.1:3000](http://127.0.0.1:3000) in your browser.
 
 Connect to your AR Drone Wi-Fi.
 
+## Testing
+
+Run the tests using NPM:
+
+```bash
+npm test
+```
+
 ## Controls
 
 **Takeoff** - A
