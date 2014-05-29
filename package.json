@@ -12,6 +12,7 @@
 		"start": "node index.js"
 	},
 	"dependencies": {
-		"ar-drone": "~0.3.2"
+		"ar-drone": "~0.3.2",
+		"starfox": "~0.0.1"
 	}
 }
