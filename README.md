@@ -28,12 +28,19 @@ Connect to your AR Drone Wi-Fi.
 ## Controls
 
 **Takeoff** - A
+
 **Land** - B
+
 **Forward/Backward** - Right Joystick (Forward/Backward respectively)
+
 **Strafe** - Right Joystic (Left/Right respectively)
+
 **Up/Down** - Left Joystic (Forward/Backward respectively)
+
 **Rotate** - Left Joystic (Left counter-clockwise, Right clockwise)
+
 **Flip Left** - Left Trigger
+
 **Flip Right** - Right Trigger
 
 ## License
