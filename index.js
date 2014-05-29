@@ -17,24 +17,35 @@ server = http.createServer(function (req, res) {
 starfox.on('connection', function (player) {
     console.log('Connected to Gamepad');
     player.on('input', function (event) {
+        // Lift and land
         if (gamepad.checkButton(event, gamepad.buttons.A)) {
             client.takeoff();
         } else if (gamepad.checkButton(event, gamepad.buttons.B)) {
-            client.stop();
             client.land();
         }
 
-        /*
-            buttons [
-                a, b, x, y
-            ]
+        // Flip left/right
+        if (gamepad.checkButton(event, gamepad.buttons.LT)) {
+            client.animate('flipLeft', 15);
+        } else if (gamepad.checkButton(event, gamepad.buttons.RT)) {
+            client.animate('flipRight', 15);
+        }
 
-            axes [ljlr, ljfb, rjlr, rjfb]
-            Full left: -1
-            Full right: 1
-            Full forward: -1
-            Full backward: 1
-         */
+        // Forward/backward
+        client.front(gamepad.getRightJoystickFrontSpeed(event));
+        client.back(gamepad.getRightJoystickBackSpeed(event));
+
+        // Up/down
+        client.up(gamepad.getLeftJoystickFrontSpeed(event));
+        client.down(gamepad.getLeftJoystickBackSpeed(event));
+
+        // Rotate clockwise/counter-clockwise
+        client.clockwise(gamepad.getRightJoystickRightSpeed(event));
+        client.counterClockwise(gamepad.getRightJoystickLeftSpeed(event));
+
+        // Strafe left/right
+        client.left(gamepad.getLeftJoystickLeftSpeed(event));
+        client.right(gamepad.getLeftJoystickRightSpeed(event));
     });
 });
 
