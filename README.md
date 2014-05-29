@@ -13,7 +13,7 @@ cd airwolf && npm install
 
 ## Running
 
-Connect Gamepad to your computer.
+Connect Gamepad to your computer (be sure mode is set to `D` on back).
 
 Start the server:
 
@@ -24,6 +24,17 @@ npm start
 Open [http://127.0.0.1:3000](http://127.0.0.1:3000) in your browser.
 
 Connect to your AR Drone Wi-Fi.
+
+## Controls
+
+**Takeoff** - A
+**Land** - B
+**Forward/Backward** - Right Joystick (Forward/Backward respectively)
+**Strafe** - Right Joystic (Left/Right respectively)
+**Up/Down** - Left Joystic (Forward/Backward respectively)
+**Rotate** - Left Joystic (Left counter-clockwise, Right clockwise)
+**Flip Left** - Left Trigger
+**Flip Right** - Right Trigger
 
 ## License
 
