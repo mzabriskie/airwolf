@@ -1,16 +1,35 @@
-var drone = require('ar-drone'),
-  client = drone.createClient();
+var http = require('http'),
+    fs = require('fs'),
+    path = require('path'),
+    starfox = require('starfox'),
+    drone = require('ar-drone'),
+    server, client;
 
-client.takeoff();
+// Create the client and the server
+client = drone.createClient();
+server = http.createServer(function (req, res) {
+    var testFile = fs.createReadStream(path.join(__dirname, 'index.html'));
+    testFile.pipe(res);
+});
 
-client
-  .after(5000, function() {
-    this.clockwise(0.5);
-  })
-  .after(3000, function() {
-    this.animate('flipLeft', 15);
-  })
-  .after(1000, function() {
-    this.stop();
-    this.land();
-  });
+// Handle gamepad
+starfox.on('connection', function (player) {
+    console.log('Connected to Gamepad');
+    player.on('input', function (event) {
+        /*
+            buttons [
+                a, b, x, y
+            ]
+
+            axes [ljlr, ljfb, rjlr, rjfb]
+            Full left: -1
+            Full right: 1
+            Full forward: -1
+            Full backward: 1
+         */
+    });
+});
+
+// Mount gamepad input and start server
+starfox.mount(server);
+server.listen(3000);
