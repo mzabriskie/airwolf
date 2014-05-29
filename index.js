@@ -17,6 +17,9 @@ server = http.createServer(function (req, res) {
 starfox.on('connection', function (player) {
     console.log('Connected to Gamepad');
     player.on('input', function (event) {
+        // Cancel previous command
+        client.stop();
+
         // Lift and land
         if (gamepad.checkButton(event, gamepad.buttons.A)) {
             client.takeoff();
@@ -52,8 +55,8 @@ starfox.on('connection', function (player) {
         }
 
         // Rotate clockwise/counter-clockwise
-        var clock = gamepad.getLeftJoystickLeftSpeed(event),
-            counter = gamepad.getLeftJoystickRightSpeed(event);
+        var clock = gamepad.getLeftJoystickRightSpeed(event),
+            counter = gamepad.getLeftJoystickLeftSpeed(event);
 
         if (clock > 0) {
             client.clockwise(clock);
@@ -62,8 +65,8 @@ starfox.on('connection', function (player) {
         }
 
         // Strafe left/right
-        var left = gamepad.getRightJoystickRightSpeed(event),
-            right = gamepad.getRightJoystickLeftSpeed(event);
+        var left = gamepad.getRightJoystickLeftSpeed(event),
+            right = gamepad.getRightJoystickRightSpeed(event);
 
         if (left > 0) {
             client.left(left);
