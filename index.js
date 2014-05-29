@@ -32,20 +32,44 @@ starfox.on('connection', function (player) {
         }
 
         // Forward/backward
-        client.front(gamepad.getRightJoystickFrontSpeed(event));
-        client.back(gamepad.getRightJoystickBackSpeed(event));
+        var front = gamepad.getRightJoystickFrontSpeed(event),
+            back = gamepad.getRightJoystickBackSpeed(event);
+
+        if (front > 0) {
+            client.front(front);
+        } else if (back > 0) {
+            client.back(back);
+        }
 
         // Up/down
-        client.up(gamepad.getLeftJoystickFrontSpeed(event));
-        client.down(gamepad.getLeftJoystickBackSpeed(event));
+        var up = gamepad.getLeftJoystickFrontSpeed(event),
+            down = gamepad.getLeftJoystickBackSpeed(event);
+
+        if (up > 0) {
+            client.up(up);
+        } else if (down > 0) {
+            client.down(down);
+        }
 
         // Rotate clockwise/counter-clockwise
-        client.clockwise(gamepad.getLeftJoystickLeftSpeed(event));
-        client.counterClockwise(gamepad.getLeftJoystickRightSpeed(event));
+        var clock = gamepad.getLeftJoystickLeftSpeed(event),
+            counter = gamepad.getLeftJoystickRightSpeed(event);
+
+        if (clock > 0) {
+            client.clockwise(clock);
+        } else if (counter > 0) {
+            client.counterClockwise(counter);
+        }
 
         // Strafe left/right
-        client.left(gamepad.getRightJoystickRightSpeed(event));
-        client.right(gamepad.getRightJoystickLeftSpeed(event));
+        var left = gamepad.getRightJoystickRightSpeed(event),
+            right = gamepad.getRightJoystickLeftSpeed(event);
+
+        if (left > 0) {
+            client.left(left);
+        } else if(right > 0) {
+            client.right(right);
+        }
     });
 });
 
