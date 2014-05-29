@@ -3,6 +3,7 @@ var http = require('http'),
     path = require('path'),
     starfox = require('starfox'),
     drone = require('ar-drone'),
+    gamepad = require('./lib/gamepad'),
     server, client;
 
 // Create the client and the server
@@ -16,6 +17,13 @@ server = http.createServer(function (req, res) {
 starfox.on('connection', function (player) {
     console.log('Connected to Gamepad');
     player.on('input', function (event) {
+        if (gamepad.checkButton(event, gamepad.buttons.A)) {
+            client.takeoff();
+        } else if (gamepad.checkButton(event, gamepad.buttons.B)) {
+            client.stop();
+            client.land();
+        }
+
         /*
             buttons [
                 a, b, x, y
