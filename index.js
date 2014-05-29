@@ -40,12 +40,12 @@ starfox.on('connection', function (player) {
         client.down(gamepad.getLeftJoystickBackSpeed(event));
 
         // Rotate clockwise/counter-clockwise
-        client.clockwise(gamepad.getRightJoystickRightSpeed(event));
-        client.counterClockwise(gamepad.getRightJoystickLeftSpeed(event));
+        client.clockwise(gamepad.getLeftJoystickLeftSpeed(event));
+        client.counterClockwise(gamepad.getLeftJoystickRightSpeed(event));
 
         // Strafe left/right
-        client.left(gamepad.getLeftJoystickLeftSpeed(event));
-        client.right(gamepad.getLeftJoystickRightSpeed(event));
+        client.left(gamepad.getRightJoystickRightSpeed(event));
+        client.right(gamepad.getRightJoystickLeftSpeed(event));
     });
 });
 
