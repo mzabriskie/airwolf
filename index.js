@@ -9,8 +9,8 @@ var http = require('http'),
 // Create the client and the server
 client = drone.createClient();
 server = http.createServer(function (req, res) {
-    var testFile = fs.createReadStream(path.join(__dirname, 'index.html'));
-    testFile.pipe(res);
+    var stream = fs.createReadStream(path.join(__dirname, 'index.html'));
+    stream.pipe(res);
 });
 
 // Handle gamepad
@@ -20,7 +20,7 @@ starfox.on('connection', function (player) {
         // Cancel previous command
         client.stop();
 
-        // Lift and land
+        // Lift/land
         if (gamepad.checkButton(event, gamepad.buttons.A)) {
             client.takeoff();
         } else if (gamepad.checkButton(event, gamepad.buttons.B)) {
