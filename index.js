@@ -13,6 +13,20 @@ server = http.createServer(function (req, res) {
     stream.pipe(res);
 });
 
+// Handle navdata
+var battery = null;
+client.on('navdata', function (data) {
+    // Battery state
+    if (data && data.demo && data.demo.batteryPercentage) {
+        var b = data.demo.batteryPercentage;
+        if (battery == null || (battery !== b && (b % 10 === 0 || b % 10 === 5))) {
+            battery = b;
+            var warning = (battery <= 20 ? '\033[0;31mWarning:\033[0m ' : '');
+            console.log(warning + 'Battery at ' + battery + '%');
+        }
+    }
+});
+
 // Handle gamepad
 starfox.on('connection', function (player) {
     console.log('Connected to Gamepad');
