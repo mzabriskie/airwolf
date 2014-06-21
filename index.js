@@ -22,9 +22,16 @@ starfox.on('connection', function (player) {
 
         // Lift/land
         if (gamepad.checkButton(event, gamepad.buttons.A)) {
+            client.animateLeds('blinkGreen', 2, 3);
             client.takeoff();
         } else if (gamepad.checkButton(event, gamepad.buttons.B)) {
+            client.animateLeds('blinkRed', 2, 3);
             client.land();
+        }
+
+        // Turnaround (about face)
+        if (gamepad.checkButton(event, gamepad.buttons.Y)) {
+            client.animate('turnaround', 50);
         }
 
         // Flip left/right
