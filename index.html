@@ -4,11 +4,37 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Airwolf</title>
+    <style>
+        body {
+            background: #161719;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
 </head>
 <body>
+    <div id="stream"></div>
+
     <script src="/starfox.js"></script>
+    <script src="/dronestream/nodecopter-client.js"></script>
     <script>
-        var sf = new Starfox();
+        new Starfox();
+        new NodecopterStream(document.getElementById('stream'));
+
+        function scale() {
+            var stream = document.getElementById('stream'),
+                canvas = document.querySelector('canvas');
+
+            stream.style.width = window.innerWidth + 'px';
+            stream.style.height = window.innerHeight + 'px';
+
+            canvas.style.width = window.innerWidth + 'px';
+            canvas.style.height = window.innerHeight + 'px';
+        }
+
+        scale();
+
+        window.onresize = scale;
     </script>
 </body>
 </html>

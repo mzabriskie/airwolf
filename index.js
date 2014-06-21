@@ -3,15 +3,18 @@ var http = require('http'),
     path = require('path'),
     starfox = require('starfox'),
     drone = require('ar-drone'),
+    stream = require('dronestream'),
     gamepad = require('./lib/gamepad'),
     server, client;
 
 // Create the client and the server
 client = drone.createClient();
 server = http.createServer(function (req, res) {
-    var stream = fs.createReadStream(path.join(__dirname, 'index.html'));
-    stream.pipe(res);
+    fs.createReadStream(path.join(__dirname, 'index.html')).pipe(res);
 });
+
+// Provide video stream
+stream.listen(server);
 
 // Handle navdata
 var battery = null;
