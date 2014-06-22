@@ -10,16 +10,46 @@
             margin: 0;
             padding: 0;
         }
+
+        #battery {
+            border: 2px solid black;
+            width: 50px;
+            height: 15px;
+            position: absolute;
+            top: 25px;
+            right: 25px;
+        }
+        #battery div { height: 100%; }
+        #battery.good { border-color: green; }
+        #battery.good div { background-color: green; }
+        #battery.bad { border-color: red; }
+        #battery.bad div { background-color: red; }
     </style>
 </head>
 <body>
     <div id="stream"></div>
+    <div id="battery"><div></div></div>
 
     <script src="/starfox.js"></script>
     <script src="/dronestream/nodecopter-client.js"></script>
+    <script src="/dronestatus/nodecopter-client.js"></script>
     <script>
         new Starfox();
         new NodecopterStream(document.getElementById('stream'));
+        new NodecopterStatus().on('change', function (message) {
+            var data = JSON.parse(message.data);
+
+            if (data && data.demo && data.demo.batteryPercentage) {
+                var b = document.getElementById('battery');
+                b.querySelector('div').style.width = data.demo.batteryPercentage + '%';
+
+                if (data.demo.batteryPercentage > 20) {
+                    b.className = 'good';
+                } else {
+                    b.className = 'bad';
+                }
+            }
+        });
 
         function scale() {
             var stream = document.getElementById('stream'),

@@ -4,6 +4,7 @@ var http = require('http'),
     starfox = require('starfox'),
     drone = require('ar-drone'),
     stream = require('dronestream'),
+    status = require('dronestatus'),
     gamepad = require('./lib/gamepad'),
     server, client;
 
@@ -12,9 +13,6 @@ client = drone.createClient();
 server = http.createServer(function (req, res) {
     fs.createReadStream(path.join(__dirname, 'index.html')).pipe(res);
 });
-
-// Provide video stream
-stream.listen(server);
 
 // Handle navdata
 var battery = null;
@@ -100,6 +98,8 @@ starfox.on('connection', function (player) {
     });
 });
 
-// Mount gamepad input and start server
+// Mount server
 starfox.mount(server);
+stream.listen(server);
+status.listen(server);
 server.listen(3000);
