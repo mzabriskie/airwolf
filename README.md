@@ -1,6 +1,6 @@
 # airwolf
 
-Control AR.Drone 2.0 with Gamepad
+Control AR.Drone 2.0 with Gamepad from your browser
 
 ## Installing
 
