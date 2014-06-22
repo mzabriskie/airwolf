@@ -12,17 +12,38 @@
         }
 
         #battery {
-            border: 2px solid black;
-            width: 50px;
-            height: 15px;
+            border: 1px solid black;
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+            border-radius: 2px;
+            width: 40px;
+            height: 11px;
+            padding: 1px;
             position: absolute;
             top: 25px;
             right: 25px;
         }
+        #battery:after {
+            content: ' ';
+            display: block;
+            width: 3px;
+            height: 5px;
+            position: relative;
+            left: 41px;
+            top: -8px;
+            -webkit-border-top-right-radius: 1px;
+            -webkit-border-bottom-right-radius: 1px;
+            -moz-border-radius-topright: 1px;
+            -moz-border-radius-bottomright: 1px;
+            border-top-right-radius: 1px;
+            border-bottom-right-radius: 1px;
+        }
         #battery div { height: 100%; }
         #battery.good { border-color: green; }
+        #battery.good:after,
         #battery.good div { background-color: green; }
         #battery.bad { border-color: red; }
+        #battery.bad:after,
         #battery.bad div { background-color: red; }
     </style>
 </head>
