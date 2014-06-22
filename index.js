@@ -14,6 +14,23 @@ server = http.createServer(function (req, res) {
     fs.createReadStream(path.join(__dirname, 'index.html')).pipe(res);
 });
 
+// Serve static files
+var listeners = server.listeners('request').slice(0);
+server.removeAllListeners('request');
+server.on('request', function (req, res) {
+    if (req.url.indexOf('/airwolf.js') === 0) {
+        res.setHeader('Content-Type', 'application/javascript');
+        require('fs').createReadStream(__dirname + '/public/js/airwolf.js').pipe(res);
+    } else if (req.url.indexOf('/airwolf.css') === 0) {
+        res.setHeader('Content-Type', 'text/css');
+        require('fs').createReadStream(__dirname + '/public/css/style.css').pipe(res);
+    } else {
+        for (var i=0, l=listeners.length; i<l; i++) {
+            listeners[i].call(server, req, res);
+        }
+    }
+});
+
 // Handle navdata
 var battery = null;
 client.on('navdata', function (data) {

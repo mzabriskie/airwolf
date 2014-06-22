@@ -4,88 +4,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Airwolf</title>
-    <style>
-        body {
-            background: #161719;
-            margin: 0;
-            padding: 0;
-        }
-
-        #battery {
-            border: 1px solid black;
-            -webkit-border-radius: 2px;
-            -moz-border-radius: 2px;
-            border-radius: 2px;
-            width: 40px;
-            height: 11px;
-            padding: 1px;
-            position: absolute;
-            top: 25px;
-            right: 25px;
-        }
-        #battery:after {
-            content: ' ';
-            display: block;
-            width: 3px;
-            height: 5px;
-            position: relative;
-            left: 41px;
-            top: -8px;
-            -webkit-border-top-right-radius: 1px;
-            -webkit-border-bottom-right-radius: 1px;
-            -moz-border-radius-topright: 1px;
-            -moz-border-radius-bottomright: 1px;
-            border-top-right-radius: 1px;
-            border-bottom-right-radius: 1px;
-        }
-        #battery div { height: 100%; }
-        #battery.good { border-color: green; }
-        #battery.good:after,
-        #battery.good div { background-color: green; }
-        #battery.bad { border-color: red; }
-        #battery.bad:after,
-        #battery.bad div { background-color: red; }
-    </style>
+    <link rel="stylesheet" type="text/css" href="/airwolf.css"/>
 </head>
 <body>
     <div id="stream"></div>
-    <div id="battery"><div></div></div>
+
+    <div id="battery">
+        <label class="percent">N/A</label>
+        <span class="glyph"><span class="fill"></span></span>
+    </div>
 
     <script src="/starfox.js"></script>
     <script src="/dronestream/nodecopter-client.js"></script>
     <script src="/dronestatus/nodecopter-client.js"></script>
-    <script>
-        new Starfox();
-        new NodecopterStream(document.getElementById('stream'));
-        new NodecopterStatus().on('change', function (message) {
-            var data = JSON.parse(message.data);
-
-            if (data && data.demo && data.demo.batteryPercentage) {
-                var b = document.getElementById('battery');
-                b.querySelector('div').style.width = data.demo.batteryPercentage + '%';
-
-                if (data.demo.batteryPercentage > 20) {
-                    b.className = 'good';
-                } else {
-                    b.className = 'bad';
-                }
-            }
-        });
-
-        function scale() {
-            var stream = document.getElementById('stream'),
-                canvas = document.querySelector('canvas');
-
-            stream.style.width = window.innerWidth + 'px';
-            stream.style.height = window.innerHeight + 'px';
-
-            canvas.style.width = window.innerWidth + 'px';
-            canvas.style.height = window.innerHeight + 'px';
-        }
-
-        scale();
-
-        window.onresize = scale;
-    </script>
+    <script src="/airwolf.js"></script>
 </body>
 </html>

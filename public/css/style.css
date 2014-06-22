@@ -1,0 +1,62 @@
+body {
+	background: #161719;
+	font-family: Arial;
+	margin: 0;
+	padding: 0;
+}
+
+/* Battery Status */
+#battery {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+}
+#battery .percent {
+	float: left;
+	margin-right: 5px;
+}
+#battery .glyph {
+	border: 1px solid black;
+	width: 30px;
+	height: 11px;
+	padding: 1px;
+	float: right;
+
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+}
+#battery .glyph,
+#battery .fill {
+	display: block;
+}
+#battery .glyph:after {
+	content: ' ';
+	display: block;
+	width: 2px;
+	height: 5px;
+	position: relative;
+	left: 33px;
+	top: -8px;
+
+	-webkit-border-top-right-radius: 1px;
+	-webkit-border-bottom-right-radius: 1px;
+	-moz-border-radius-topright: 1px;
+	-moz-border-radius-bottomright: 1px;
+	border-top-right-radius: 1px;
+	border-bottom-right-radius: 1px;
+}
+#battery .fill { height: 100%; }
+
+#battery .glyph:after,
+#battery .fill { background-color: black; }
+
+#battery.good .percent { color: green; }
+#battery.good .glyph { border-color: green; }
+#battery.good .glyph:after,
+#battery.good .fill { background-color: green; }
+
+#battery.bad .percent { color: red; }
+#battery.bad .glyph { border-color: red; }
+#battery.bad .glyph:after,
+#battery.bad .fill { background-color: red; }
