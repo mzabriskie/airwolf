@@ -6,7 +6,7 @@
 		nStream = new NodecopterStream(document.getElementById('stream')),
 		nStatus = new NodecopterStatus();
 
-	// Handle status change
+	// Battery widget
 	(function () {
 		var batteryEl	= document.getElementById('battery'),
 			percentEl	= batteryEl.querySelector('.percent'),
@@ -28,6 +28,35 @@
 				} else {
 					batteryEl.className = 'bad';
 				}
+			}
+		});
+	})();
+
+	// Altimeter widget
+	(function () {
+		var containerEl = document.getElementById('altimeter').querySelector('.container'),
+			max = 250, min = -150;
+
+		// Render ticks
+		for (var i=max; i>=min; i--) {
+			var e = document.createElement('div');
+			if (Math.abs(i % 10) === 0 || Math.abs(i % 10) === 5) {
+				var l = document.createElement('label');
+				l.innerHTML = i;
+				e.appendChild(l);
+			}
+			containerEl.appendChild(e);
+		}
+
+		function setAltitude(a) {
+			containerEl.style.top = -((max-9-a) * 15) + 'px';
+		}
+
+		nStatus.on('change', function (message) {
+			var data = JSON.parse(message.data);
+
+			if (data && data.demo && typeof data.demo.altitude !== 'undefined') {
+				setAltitude(data.demo.altitude);
 			}
 		});
 	})();

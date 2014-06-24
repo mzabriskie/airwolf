@@ -1,3 +1,7 @@
+* {
+	box-sizing: border-box;
+}
+
 body {
 	background: #161719;
 	font-family: Arial;
@@ -18,7 +22,7 @@ body {
 #battery .glyph {
 	border: 1px solid black;
 	width: 30px;
-	height: 11px;
+	height: 15px;
 	padding: 1px;
 	float: right;
 
@@ -36,7 +40,7 @@ body {
 	width: 2px;
 	height: 5px;
 	position: relative;
-	left: 33px;
+	left: 29px;
 	top: -8px;
 
 	-webkit-border-top-right-radius: 1px;
@@ -51,12 +55,63 @@ body {
 #battery .glyph:after,
 #battery .fill { background-color: black; }
 
-#battery.good .percent { color: green; }
-#battery.good .glyph { border-color: green; }
+#battery.good .percent { color: rgb(77,218,22); }
+#battery.good .glyph { border-color: rgb(77,218,22); }
 #battery.good .glyph:after,
-#battery.good .fill { background-color: green; }
+#battery.good .fill { background-color: rgb(77,218,22); }
 
-#battery.bad .percent { color: red; }
-#battery.bad .glyph { border-color: red; }
+#battery.bad .percent { color: rgb(217,22,22); }
+#battery.bad .glyph { border-color: rgb(217,22,22); }
 #battery.bad .glyph:after,
-#battery.bad .fill { background-color: red; }
+#battery.bad .fill { background-color: rgb(217,22,22); }
+
+
+/* Altimeter */
+#altimeter {
+	border-top: 1px solid rgb(77,218,22);
+	border-bottom: 1px solid rgb(77,218,22);
+	border-left: 1px solid rgb(77,218,22);
+	overflow: hidden;
+	position: absolute;
+	top: 15%;
+	right: 5%;
+	width: 50px;
+	height: 300px;
+	padding-left: 10px;
+}
+
+#altimeter .container {
+	height: 100%;
+	position: relative;
+	top: -3615px;
+
+	transition: top 250ms;
+    -o-transition: top 250ms;
+    -ms-transition: top 250ms;
+    -moz-transition: top 250ms;
+    -webkit-transition: top 250ms;
+}
+
+#altimeter .glyph {
+	background: rgb(77,218,22);
+	height: 10px;
+	width: 10px;
+	position: absolute;
+	top: 145px;
+	left: 0;
+}
+
+#altimeter .container div {
+	border-top: 1px solid rgb(77,218,22);
+	border-left: 1px solid rgb(77,218,22);
+	height: 15px;
+	width: 10px;
+	position: relative;
+}
+
+#altimeter .container label {
+	color: rgb(77,218,22);
+	position: absolute;
+	top: 6px;
+	left: 12px;
+}
