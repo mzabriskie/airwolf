@@ -35,7 +35,10 @@
 	// Altimeter widget
 	(function () {
 		var containerEl = document.getElementById('altimeter').querySelector('.container'),
-			max = 250, min = -150;
+			max = 250, min = -150,
+			TICK_OFFSET = 9,
+			TICK_HEIGHT = 15,
+			METERS_IN_FEET = .3048;
 
 		// Render ticks
 		for (var i=max; i>=min; i--) {
@@ -49,7 +52,7 @@
 		}
 
 		function setAltitude(a) {
-			containerEl.style.top = -((max-9-a) * 15) + 'px';
+			containerEl.style.top = -((max - TICK_OFFSET - (a / METERS_IN_FEET)) * TICK_HEIGHT) + 'px';
 		}
 
 		nStatus.on('change', function (message) {
