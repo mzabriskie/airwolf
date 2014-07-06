@@ -27,6 +27,12 @@
 					batteryEl.className = 'good';
 				} else {
 					batteryEl.className = 'bad';
+
+					// Play low battery sound effect at 20, 15, 10, 5, 0
+					// Audio by zimbot https://www.freesound.org/people/zimbot/sounds/122989/
+					if (p % 10 === 0 || p % 10 === 5) {
+						document.getElementById('lowbattery').play();
+					}
 				}
 			}
 		});

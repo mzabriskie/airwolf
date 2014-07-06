@@ -19,14 +19,18 @@ var listeners = server.listeners('request').slice(0);
 server.removeAllListeners('request');
 server.on('request', function (req, res) {
 	var file = null;
-	
+
     if (req.url.indexOf('/airwolf.js') === 0) {
         res.setHeader('Content-Type', 'application/javascript');
         file = path.join(__dirname, '/public/js/airwolf.js');
-    } else if (req.url.indexOf('/airwolf.css') === 0) {
+    }
+	else if (req.url.indexOf('/airwolf.css') === 0) {
         res.setHeader('Content-Type', 'text/css');
         file = path.join(__dirname, '/public/css/style.css');
     }
+	else if (req.url.indexOf('/audio/') === 0) {
+		file = path.join(__dirname, '/public', req.url);
+	}
 
 	if (file !== null) {
 		fs.exists(file, function (exists) {
@@ -38,7 +42,8 @@ server.on('request', function (req, res) {
 				fs.createReadStream(file).pipe(res);
 			}
 		});
-	} else {
+	}
+	else {
         for (var i=0, l=listeners.length; i<l; i++) {
             listeners[i].call(server, req, res);
         }
