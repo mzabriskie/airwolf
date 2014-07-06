@@ -18,13 +18,27 @@ server = http.createServer(function (req, res) {
 var listeners = server.listeners('request').slice(0);
 server.removeAllListeners('request');
 server.on('request', function (req, res) {
+	var file = null;
+	
     if (req.url.indexOf('/airwolf.js') === 0) {
         res.setHeader('Content-Type', 'application/javascript');
-        require('fs').createReadStream(__dirname + '/public/js/airwolf.js').pipe(res);
+        file = path.join(__dirname, '/public/js/airwolf.js');
     } else if (req.url.indexOf('/airwolf.css') === 0) {
         res.setHeader('Content-Type', 'text/css');
-        require('fs').createReadStream(__dirname + '/public/css/style.css').pipe(res);
-    } else {
+        file = path.join(__dirname, '/public/css/style.css');
+    }
+
+	if (file !== null) {
+		fs.exists(file, function (exists) {
+			if (!exists) {
+				res.writeHead(404);
+				res.write('<h1>404 Not Found</h1>');
+				res.end();
+			} else {
+				fs.createReadStream(file).pipe(res);
+			}
+		});
+	} else {
         for (var i=0, l=listeners.length; i<l; i++) {
             listeners[i].call(server, req, res);
         }
