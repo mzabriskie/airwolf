@@ -21,7 +21,7 @@
 	"dependencies": {
 		"ar-drone": "~0.3.2",
 		"dronestream": "~1.1.1",
-		"dronestatus": "~0.1.1",
+		"dronestatus": "~0.2.0",
 		"starfox": "~0.0.1"
 	}
 }

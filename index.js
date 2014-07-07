@@ -50,9 +50,9 @@ server.on('request', function (req, res) {
     }
 });
 
-// Handle navdata
+// Handle status change
 var battery = null;
-client.on('navdata', function (data) {
+status.on('change', function (data) {
     // Battery state
     if (data && data.demo && data.demo.batteryPercentage) {
         var b = data.demo.batteryPercentage;
@@ -136,6 +136,6 @@ starfox.on('connection', function (player) {
 
 // Mount server
 starfox.mount(server);
-stream.listen(server);
-status.listen(server);
+stream.listen(server, { tcpVideoStream: client.getVideoStream() });
+status.listen(server, { udpControl: client._udpControl, udpNavdataStream: client._udpNavdatasStream });
 server.listen(3000);
